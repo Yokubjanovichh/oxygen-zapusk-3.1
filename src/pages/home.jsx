@@ -61,10 +61,18 @@ export default function Home() {
   const progressWidth = Math.max((timeLeft / totalTime) * 179, 50);
 
   useEffect(() => {
-    const img = new Image();
-    img.src = mainBg2;
-    img.onload = () => {
+    const handleLoad = () => {
       setPageLoaded(true);
+    };
+
+    if (document.readyState === "complete") {
+      setPageLoaded(true);
+    } else {
+      window.addEventListener("load", handleLoad);
+    }
+
+    return () => {
+      window.removeEventListener("load", handleLoad);
     };
   }, []);
 
