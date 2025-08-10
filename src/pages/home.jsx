@@ -61,18 +61,30 @@ export default function Home() {
   const progressWidth = Math.max((timeLeft / totalTime) * 179, 50);
 
   useEffect(() => {
-    const handleLoad = () => {
-      setPageLoaded(true);
+    // Barcha resurslarni kutish funksiyasi
+    const waitForPageLoad = () => {
+      if (document.readyState === "complete") {
+        // Har ehtimolga qarshi fontlar yuklanganini ham kutamiz
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => {
+            setPageLoaded(true);
+          });
+        } else {
+          setPageLoaded(true);
+        }
+      }
     };
 
+    // Agar sahifa allaqachon yuklangan bo‘lsa
     if (document.readyState === "complete") {
-      setPageLoaded(true);
+      waitForPageLoad();
     } else {
-      window.addEventListener("load", handleLoad);
+      // Yuklangach ishga tushirish
+      window.addEventListener("load", waitForPageLoad);
     }
 
     return () => {
-      window.removeEventListener("load", handleLoad);
+      window.removeEventListener("load", waitForPageLoad);
     };
   }, []);
 
