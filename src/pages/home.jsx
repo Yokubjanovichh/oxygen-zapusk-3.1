@@ -61,31 +61,19 @@ export default function Home() {
   const progressWidth = Math.max((timeLeft / totalTime) * 179, 50);
 
   useEffect(() => {
-    // Barcha resurslarni kutish funksiyasi
-    const waitForPageLoad = () => {
-      if (document.readyState === "complete") {
-        // Har ehtimolga qarshi fontlar yuklanganini ham kutamiz
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(() => {
-            setPageLoaded(true);
-          });
-        } else {
+    const imageList = [mainBg2, titile];
+
+    let loadedCount = 0;
+    imageList.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === imageList.length) {
           setPageLoaded(true);
         }
-      }
-    };
-
-    // Agar sahifa allaqachon yuklangan bo‘lsa
-    if (document.readyState === "complete") {
-      waitForPageLoad();
-    } else {
-      // Yuklangach ishga tushirish
-      window.addEventListener("load", waitForPageLoad);
-    }
-
-    return () => {
-      window.removeEventListener("load", waitForPageLoad);
-    };
+      };
+    });
   }, []);
 
   if (!pageLoaded) return <Loader />;
