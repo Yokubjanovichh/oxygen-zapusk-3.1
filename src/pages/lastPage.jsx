@@ -49,16 +49,9 @@ export default function LastPage() {
         <div className={styles.lastButtons}>
           <button
             className={styles.tgChannel}
-            onClick={() => {
-              if (typeof fbq !== "undefined") {
-                fbq("trackCustom", "JoinTelegramChannelClicked", {
-                  buttonText: "Telegram kanalga o'tish",
-                  page: window.location.pathname,
-                });
-              }
-
-              window.location.href = "https://t.me/+oc2fG1_xsA02YzFi";
-            }}
+            onClick={() =>
+              (window.location.href = "https://t.me/+oc2fG1_xsA02YzFi")
+            }
           >
             <img src={tgChannel} alt="tgChannel" />
           </button>
