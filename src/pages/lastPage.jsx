@@ -56,7 +56,7 @@ export default function LastPage() {
                   page: window.location.pathname,
                 });
               }
-              // window.location.href = "https://t.me/+oc2fG1_xsA02YzFi";
+              window.location.href = "https://t.me/+oc2fG1_xsA02YzFi";
             }}
           >
             <img src={tgChannel} alt="tgChannel" />
